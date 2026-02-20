@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAha · smart shopping</title>
+  <title>Smart Mart · smart shopping</title>
   <!-- Font Awesome 6 (free) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -68,7 +68,7 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .logo-text .maha-light {
+    .logo-text .mart-light {
       font-weight: 300;
       color: #64748b;
       -webkit-text-fill-color: #64748b;
@@ -259,10 +259,10 @@
       box-shadow: 0 12px 22px -14px #1e3c5c55;
     }
 
-    /* product cards */
+    /* product cards - updated for images */
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 2rem 1.5rem;
       margin: 2rem 0 3rem;
     }
@@ -270,7 +270,7 @@
     .product-card {
       background: white;
       border-radius: 24px;
-      padding: 1.5rem 1.2rem 1.5rem;
+      padding: 1rem 1rem 1.5rem;
       box-shadow: 0 15px 30px -14px rgba(30, 60, 92, 0.12);
       transition: all 0.2s ease;
       border: 1px solid rgba(0,0,0,0.02);
@@ -295,35 +295,41 @@
       padding: 4px 12px;
       border-radius: 40px;
       letter-spacing: 0.3px;
+      z-index: 10;
     }
 
     .product-img {
       width: 100%;
       aspect-ratio: 1/1;
-      background: #f1f5f9;
       border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden;
       margin-bottom: 1.4rem;
-      color: #1e3c5c;
-      font-size: 3.5rem;
-      transition: background 0.2s;
+      background: #f1f5f9;
     }
-    .product-card:hover .product-img {
-      background: #e6eef9;
+    
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover .product-img img {
+      transform: scale(1.05);
     }
 
     .product-title {
       font-size: 1.25rem;
       font-weight: 650;
       margin-bottom: 0.4rem;
+      padding: 0 0.25rem;
     }
     .product-desc {
       color: #5f6c80;
       font-size: 0.9rem;
       margin-bottom: 1rem;
       line-height: 1.4;
+      padding: 0 0.25rem;
     }
     .product-footer {
       display: flex;
@@ -331,7 +337,7 @@
       justify-content: space-between;
       margin-top: auto;
       border-top: 1px solid #eef3f8;
-      padding-top: 1rem;
+      padding: 1rem 0.25rem 0;
     }
     .price {
       font-size: 1.5rem;
@@ -342,6 +348,8 @@
       font-size: 0.9rem;
       font-weight: 400;
       color: #7c8ba0;
+      text-decoration: line-through;
+      margin-left: 6px;
     }
     .add-to-cart {
       background: #1e3c5c;
@@ -437,8 +445,8 @@
   <!-- header / navigation -->
   <header class="top-bar">
     <div class="logo-area">
-      <div class="logo-icon">M</div>
-      <div class="logo-text"><span>MAha</span><span class="maha-light"> shopping</span></div>
+      <div class="logo-icon">S</div>
+      <div class="logo-text"><span>Smart</span><span class="mart-light"> Mart</span></div>
     </div>
 
     <div class="search-bar">
@@ -456,16 +464,16 @@
   </header>
 
   <main class="container">
-    <!-- hero banner with MAha vibe -->
+    <!-- hero banner with Smart Mart vibe -->
     <section class="hero">
       <div class="hero-text">
-        <h1>MAha <span style="font-weight:300;">·</span> your smart cart</h1>
+        <h1>Smart <span style="font-weight:300;">·</span> your smart cart</h1>
         <p>Fresh styles, electronics, daily needs — all in one place. express delivery.</p>
-        <button class="hero-btn"><i class="fas fa-bolt"></i> MAha flash sale</button>
+        <button class="hero-btn"><i class="fas fa-bolt"></i> Smart flash sale</button>
       </div>
       <div class="hero-offer">
         <span class="big">Up to 60%</span>
-        <span class="small">on MAha select • today only</span>
+        <span class="small">on Smart select • today only</span>
       </div>
     </section>
 
@@ -480,66 +488,78 @@
       <div class="cat-item"><i class="fas fa-drumstick-bite"></i> Grocery</div>
     </div>
 
-    <!-- featured products (MAha picks) -->
-    <div class="section-title"><i class="fas fa-star" style="color: #f4b740;"></i> MAha top picks for you</div>
+    <!-- featured products (Smart Mart picks) with real images -->
+    <div class="section-title"><i class="fas fa-star" style="color: #f4b740;"></i> Smart top picks for you</div>
     <div class="product-grid">
-      <!-- card 1 -->
+      <!-- card 1 - Headphones -->
       <article class="product-card">
         <div class="product-badge">−35%</div>
-        <div class="product-img"><i class="fas fa-headphones" style="font-size: 4rem;"></i></div>
-        <h3 class="product-title">MAha Pods 2</h3>
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&auto=format&fit=crop" alt="Smart Pods 2 headphones">
+        </div>
+        <h3 class="product-title">Smart Pods 2</h3>
         <p class="product-desc">Wireless noise-cancelling, 24h battery.</p>
         <div class="product-footer">
           <span class="price">$79 <small>$119</small></span>
           <button class="add-to-cart" aria-label="Add to cart"><i class="fas fa-plus"></i></button>
         </div>
       </article>
-      <!-- card 2 -->
+      <!-- card 2 - Linen Shirt -->
       <article class="product-card">
-        <div class="product-img"><i class="fas fa-tshirt" style="font-size: 4rem;"></i></div>
-        <h3 class="product-title">MAha linen shirt</h3>
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1598033129077-9cf2e32f0e0f?w=400&h=400&auto=format&fit=crop" alt="Smart linen shirt">
+        </div>
+        <h3 class="product-title">Smart linen shirt</h3>
         <p class="product-desc">Premium organic cotton, regular fit.</p>
         <div class="product-footer">
           <span class="price">$39 <small>$65</small></span>
           <button class="add-to-cart"><i class="fas fa-plus"></i></button>
         </div>
       </article>
-      <!-- card 3 with discount badge -->
+      <!-- card 3 - Smart Watch -->
       <article class="product-card">
         <div class="product-badge">−20%</div>
-        <div class="product-img"><i class="fas fa-clock"></i></div>
-        <h3 class="product-title">MAha smart watch</h3>
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&auto=format&fit=crop" alt="Smart watch">
+        </div>
+        <h3 class="product-title">Smart watch</h3>
         <p class="product-desc">Heart rate, steps, sleep tracker.</p>
         <div class="product-footer">
           <span class="price">$129 <small>$159</small></span>
           <button class="add-to-cart"><i class="fas fa-plus"></i></button>
         </div>
       </article>
-      <!-- card 4 -->
+      <!-- card 4 - Laptop -->
       <article class="product-card">
-        <div class="product-img"><i class="fas fa-laptop"></i></div>
-        <h3 class="product-title">MAhaBook Air</h3>
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&auto=format&fit=crop" alt="SmartBook Air laptop">
+        </div>
+        <h3 class="product-title">SmartBook Air</h3>
         <p class="product-desc">13" Retina, 8GB RAM, 256GB SSD.</p>
         <div class="product-footer">
           <span class="price">$899</span>
           <button class="add-to-cart"><i class="fas fa-plus"></i></button>
         </div>
       </article>
-      <!-- card 5 (extra) -->
+      <!-- card 5 - Yoga Mat -->
       <article class="product-card">
         <div class="product-badge" style="background:#368F8F;">new</div>
-        <div class="product-img"><i class="fas fa-dumbbell"></i></div>
-        <h3 class="product-title">MAha yoga mat</h3>
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=400&h=400&auto=format&fit=crop" alt="Smart yoga mat">
+        </div>
+        <h3 class="product-title">Smart yoga mat</h3>
         <p class="product-desc">Non-slip, eco friendly, 6mm.</p>
         <div class="product-footer">
           <span class="price">$29</span>
           <button class="add-to-cart"><i class="fas fa-plus"></i></button>
         </div>
       </article>
-      <!-- card 6 -->
+      <!-- card 6 - Cushion Set -->
       <article class="product-card">
-        <div class="product-img"><i class="fas fa-couch"></i></div>
-        <h3 class="product-title">MAha cushion set</h3>
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1584102272772-6f3b26b1e9b6?w=400&h=400&auto=format&fit=crop" alt="Smart cushion set">
+        </div>
+        <h3 class="product-title">Smart cushion set</h3>
         <p class="product-desc">Velvet covers, pack of 2.</p>
         <div class="product-footer">
           <span class="price">$45</span>
@@ -551,39 +571,53 @@
     <!-- value features -->
     <div class="feature-bar">
       <div class="feature-item"><i class="fas fa-truck-fast"></i> Free delivery over $49</div>
-      <div class="feature-item"><i class="fas fa-rotate-left"></i> 30-day MAha return</div>
-      <div class="feature-item"><i class="fas fa-shield-heart"></i> MAha assured</div>
+      <div class="feature-item"><i class="fas fa-rotate-left"></i> 30-day Smart return</div>
+      <div class="feature-item"><i class="fas fa-shield-heart"></i> Smart assured</div>
       <div class="feature-item"><i class="far fa-credit-card"></i> Pay on delivery</div>
     </div>
 
-    <!-- another mini row with MAha plus -->
+    <!-- Smart plus section with images -->
     <div style="display: flex; gap: 1.2rem; align-items: baseline; margin-top: 2rem;">
-      <h2 style="font-weight: 650; font-size: 1.6rem;"><i class="fas fa-crown" style="color: #f1c40f;"></i> MAha plus</h2>
+      <h2 style="font-weight: 650; font-size: 1.6rem;"><i class="fas fa-crown" style="color: #f1c40f;"></i> Smart plus</h2>
       <span style="color: #2b4c7c; background: #e0ebf9; padding: 0.4rem 1rem; border-radius: 60px; font-weight: 500;">Members only deals</span>
     </div>
     <div class="product-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 1rem;">
-      <!-- small exclusive card -->
+      <!-- exclusive mug -->
       <article class="product-card" style="background: #fafcff;">
-        <div class="product-img"><i class="fas fa-mug-hot"></i></div>
-        <h3 class="product-title">MAha ceramic mug</h3>
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=400&auto=format&fit=crop" alt="Smart ceramic mug">
+        </div>
+        <h3 class="product-title">Smart ceramic mug</h3>
         <p class="product-desc">exclusive for plus members</p>
         <div class="product-footer"><span class="price">$12</span><button class="add-to-cart"><i class="fas fa-plus"></i></button></div>
       </article>
+      <!-- exclusive running shoes -->
       <article class="product-card" style="background: #fafcff;">
-        <div class="product-img"><i class="fas fa-shoe-prints"></i></div>
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&auto=format&fit=crop" alt="running shoes">
+        </div>
         <h3 class="product-title">running shoes</h3>
         <p class="product-desc">cloud foam, plus early access</p>
         <div class="product-footer"><span class="price">$79</span><button class="add-to-cart"><i class="fas fa-plus"></i></button></div>
       </article>
+      <!-- additional plus item - backpack -->
+      <article class="product-card" style="background: #fafcff;">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&auto=format&fit=crop" alt="backpack">
+        </div>
+        <h3 class="product-title">Smart backpack</h3>
+        <p class="product-desc">waterproof, laptop sleeve</p>
+        <div class="product-footer"><span class="price">$49</span><button class="add-to-cart"><i class="fas fa-plus"></i></button></div>
+      </article>
     </div>
   </main>
 
-  <!-- footer with MAha identity -->
+  <!-- footer with Smart Mart identity -->
   <footer class="footer">
     <div class="footer-col">
-      <div class="footer-logo">MAha</div>
-      <p><i class="fas fa-map-pin"></i>  shopping, simplified.</p>
-      <p>© 2025 MAha retail pvt.</p>
+      <div class="footer-logo">Smart Mart</div>
+      <p><i class="fas fa-map-pin"></i> shopping, simplified.</p>
+      <p>© 2025 Smart Mart retail pvt.</p>
     </div>
     <div class="footer-col">
       <p><strong>shop</strong></p>
@@ -598,20 +632,21 @@
       <p>track order</p>
     </div>
     <div class="footer-col social">
-      <p><strong>MAha social</strong></p>
+      <p><strong>Smart social</strong></p>
       <a href="#"><i class="fab fa-instagram"></i></a>
       <a href="#"><i class="fab fa-facebook"></i></a>
       <a href="#"><i class="fab fa-x-twitter"></i></a>
       <a href="#"><i class="fab fa-youtube"></i></a>
     </div>
     <div class="copyright">
-      MAha shopping — where desire meets convenience
+      Smart Mart — where desire meets convenience
     </div>
   </footer>
+  
   <!-- tiny script (for visual demo / console heart) -->
   <script>
     (function() {
-      console.log("🛍️ MAha shopping index loaded — let's find your style.");
+      console.log("🛍️ Smart Mart index loaded — let's find your style.");
       // optional micro interaction: all add-to-cart buttons show a friendly alert (just for demo)
       const cartButtons = document.querySelectorAll('.add-to-cart');
       cartButtons.forEach(btn => {
@@ -619,7 +654,7 @@
           e.preventDefault();
           const card = btn.closest('.product-card');
           const title = card?.querySelector('.product-title')?.innerText || 'item';
-          alert(`✨ "${title}" added to your MAha cart (demo)`);
+          alert(`✨ "${title}" added to your Smart Mart cart (demo)`);
         });
       });
     })();
