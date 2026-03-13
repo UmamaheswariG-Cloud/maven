@@ -1,53 +1,83 @@
-trigger:
-  branches:
-    include:
-      - main    # main lo commit / push chesina ventane pipeline auto run
+pipeline {
+    agent any
+    
+    environment {
+        AWS_REGION = "us-east-1"
+        ECR_REPO = "538449086740.dkr.ecr.us-east-1.amazonaws.com/siva-elastic-ecr"
+        ECR_REGISTRY = "538449086740.dkr.ecr.us-east-1.amazonaws.com"
+    }
+    
+    stages {
 
-pool:
-  vmImage: 'ubuntu-latest'
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main',
+                url: 'https://github.com/Nallamekala-SivaBrahmaiah/python-web-application.git'
+            }
+        }
+        
+        stage('Maven Build') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        
+        stage('SonarQube Code Scan') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh '''
+                    mvn sonar:sonar \
+                    -Dsonar.projectKey=python-web-application \
+                    -Dsonar.sources=backend,frontend
+                    '''
+                }
+            }
+        }
+        
+        stage('Login to ECR') {
+            steps {
+                sh '''
+                aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+                '''
+            }
+        }
 
-steps:
+        stage('Build Images') {
+            steps {
+                sh '''
+                docker build -t $ECR_REPO:backend ./backend
+                docker build -t $ECR_REPO:frontend ./frontend
+                '''
+            }
+        }
+        
+        stage('Trivy Scan Images') {
+            steps {
+                sh '''
+                echo "Scanning backend image..."
+                trivy image --severity HIGH,CRITICAL $ECR_REPO:backend || true
+                
+                echo "Scanning frontend image..."
+                trivy image --severity HIGH,CRITICAL $ECR_REPO:frontend || true
+                '''
+            }
+        }
 
-# Install Terraform
-- task: Bash@3
-  displayName: "Install Terraform"
-  inputs:
-    targetType: 'inline'
-    script: |
-      sudo apt-get update -y
-      sudo apt-get install -y gnupg software-properties-common
-      wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
-      echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
-      sudo tee /etc/apt/sources.list.d/hashicorp.list
-      sudo apt update -y
-      sudo apt-get install terraform -y
-
-# Terraform Init
-- task: AzureCLI@2
-  displayName: "Terraform Init"
-  inputs:
-    azureSubscription: "Siva"
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
-      terraform init
-
-# Terraform Plan
-- task: AzureCLI@2
-  displayName: "Terraform Plan"
-  inputs:
-    azureSubscription: "Siva"
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
-      terraform plan
-
-# Terraform Apply
-- task: AzureCLI@2
-  displayName: "Terraform Apply"
-  inputs:
-    azureSubscription: "Siva"
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
-      terraform apply -auto-approve
+        stage('Push Images') {
+            steps {
+                sh '''
+                docker push $ECR_REPO:backend
+                docker push $ECR_REPO:frontend
+                '''
+            }
+        }
+            
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh '''
+                kubectl apply -f jenkins.yaml
+                '''
+            }
+        }
+    }
+}
